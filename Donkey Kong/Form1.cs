@@ -57,8 +57,6 @@ namespace Donkey_Kong
         int barrelXSpeed = 3;
         int barrelYSpeed = 0;
 
-        int score = 0;
-
         bool leftDown = false;
         bool rightDown = false;
         bool upDown = false;
@@ -106,8 +104,6 @@ namespace Donkey_Kong
             gameTimer.Enabled = true;
 
             gameState = "running";
-
-            score = 0;
 
             animationCounter = 1;
             climbAnimationCounter = 1;
@@ -909,17 +905,6 @@ namespace Donkey_Kong
             }
 
 
-            #endregion
-
-            #region scoring
-            for (int i = 0; i < barrelYList.Count(); i++)
-            {
-                if (playerY < barrelYList[i] && jumpOk == false)
-                {
-                    score += 5;
-                    scoreNumberLabel.Text = $"{score}";
-                }
-            }
             #endregion
 
             #region winning

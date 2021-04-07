@@ -35,8 +35,6 @@ namespace Donkey_Kong
             this.controlsButton = new System.Windows.Forms.Button();
             this.escapeLabel = new System.Windows.Forms.Label();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
-            this.scoreLabel = new System.Windows.Forms.Label();
-            this.scoreNumberLabel = new System.Windows.Forms.Label();
             this.controlsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -96,29 +94,6 @@ namespace Donkey_Kong
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
-            // scoreLabel
-            // 
-            this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
-            this.scoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.scoreLabel.ForeColor = System.Drawing.Color.White;
-            this.scoreLabel.Location = new System.Drawing.Point(608, 9);
-            this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(65, 25);
-            this.scoreLabel.TabIndex = 4;
-            this.scoreLabel.Text = "Score";
-            // 
-            // scoreNumberLabel
-            // 
-            this.scoreNumberLabel.BackColor = System.Drawing.Color.Transparent;
-            this.scoreNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.scoreNumberLabel.ForeColor = System.Drawing.Color.Red;
-            this.scoreNumberLabel.Location = new System.Drawing.Point(574, 34);
-            this.scoreNumberLabel.Name = "scoreNumberLabel";
-            this.scoreNumberLabel.Size = new System.Drawing.Size(127, 44);
-            this.scoreNumberLabel.TabIndex = 5;
-            this.scoreNumberLabel.Text = "0";
-            this.scoreNumberLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // controlsLabel
             // 
             this.controlsLabel.BackColor = System.Drawing.Color.Transparent;
@@ -137,8 +112,6 @@ namespace Donkey_Kong
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(700, 600);
-            this.Controls.Add(this.scoreNumberLabel);
-            this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.escapeLabel);
             this.Controls.Add(this.controlsButton);
             this.Controls.Add(this.startButton);
@@ -164,8 +137,6 @@ namespace Donkey_Kong
         private System.Windows.Forms.Button controlsButton;
         private System.Windows.Forms.Label escapeLabel;
         private System.Windows.Forms.Timer gameTimer;
-        private System.Windows.Forms.Label scoreLabel;
-        private System.Windows.Forms.Label scoreNumberLabel;
         private System.Windows.Forms.Label controlsLabel;
     }
 }
