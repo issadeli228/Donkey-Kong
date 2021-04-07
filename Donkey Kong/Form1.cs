@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Media;
 
 namespace Donkey_Kong
 {
@@ -78,10 +79,17 @@ namespace Donkey_Kong
 
         Pen redPen = new Pen(Color.Red, 10);
         SolidBrush blueBrush = new SolidBrush(Color.DodgerBlue);
+
+        SoundPlayer jumping = new SoundPlayer(Properties.Resources.jump);
+        SoundPlayer intro = new SoundPlayer(Properties.Resources.intro);
+        SoundPlayer death = new SoundPlayer(Properties.Resources.death);
+        SoundPlayer win = new SoundPlayer(Properties.Resources.win);
         #endregion
 
         public Form1()
         {
+            Form2 f2 = new Form2();
+            f2.Show();
             InitializeComponent();
         }
 
@@ -91,6 +99,9 @@ namespace Donkey_Kong
             #region game initialize
             titleLabel.Text = "";
             escapeLabel.Text = "";
+
+            playerX = 150;
+            playerY = 505;
 
             gameTimer.Enabled = true;
 
@@ -129,6 +140,9 @@ namespace Donkey_Kong
             marioGameOverImage = Properties.Resources.marioGameOver;
             marioJumpingRightimage = Properties.Resources.marioJumpingRight;
             marioJumpingLeftimage = Properties.Resources.marioJumpingLeft;
+
+            intro.Play();
+            Thread.Sleep(5500);
 
             this.Focus();
 
@@ -169,6 +183,7 @@ namespace Donkey_Kong
                         controlsButton.Visible = true;
                         startButton.Enabled = true;
                         controlsButton.Enabled = true;
+                        Refresh();
                     }
 
                     if (gameState == "controls" && mDown == true)
@@ -192,11 +207,13 @@ namespace Donkey_Kong
                         controlsButton.Visible = true;
                         startButton.Enabled = true;
                         controlsButton.Enabled = true;
+                        GameInitialize();
                     }
                     break;
                 case Keys.Space:
                     if (jumpOk == true)
                     {
+                        jumping.Play();
                         jumpOk = false;
                     }
                     spaceDown = true;
@@ -337,7 +354,6 @@ namespace Donkey_Kong
                 controlsButton.Visible = true;
                 startButton.Enabled = true;
                 controlsButton.Enabled = true;
-                
             }
 
             //lose
@@ -355,7 +371,7 @@ namespace Donkey_Kong
         private void startButton_Click(object sender, EventArgs e)
         {
             #region startbutton
-            if (gameState == "waiting" || gameState == "over")
+            if (gameState == "waiting")
             {
                 GameInitialize();
             }
@@ -432,15 +448,6 @@ namespace Donkey_Kong
                     jumpCounter = 0;
                     jumpOk = true;
                 }
-
-                //if (marioImage == marioLeft1Image || marioImage == marioLeft2Image || marioImage == marioLeft3Image)
-                //{
-                //    marioImage = marioJumpingLeftimage;
-                //}
-                //if (marioImage == marioRight1Image || marioImage == marioRight2Image || marioImage == marioRight3Image)
-                //{
-                //    marioImage = marioJumpingRightimage;
-                //}
 
                 if (leftDown == true)
                 {
@@ -809,7 +816,16 @@ namespace Donkey_Kong
 
                 if (playerRec.IntersectsWith(barrelRec))
                 {
+                    death.Play();
                     gameState = "overLose";
+                    gameTimer.Enabled = false;
+                    barrelXList.Clear();
+                    barrelYList.Clear();
+                    barrelWidthList.Clear();
+                    barrelHeightList.Clear();
+                    barrelXSpeedList.Clear();
+                    barrelYSpeedList.Clear();
+                    
                 }
             }
 
@@ -877,7 +893,6 @@ namespace Donkey_Kong
                     barrelYList[i] += barrelYSpeedList[i];
                 }
             }
-
             #endregion
 
             #region removing barrels
@@ -892,6 +907,8 @@ namespace Donkey_Kong
                     break;
                 }
             }
+
+
             #endregion
 
             #region scoring
@@ -899,7 +916,7 @@ namespace Donkey_Kong
             {
                 if (playerY < barrelYList[i] && jumpOk == false)
                 {
-                    score += 10;
+                    score += 5;
                     scoreNumberLabel.Text = $"{score}";
                 }
             }
@@ -908,6 +925,7 @@ namespace Donkey_Kong
             #region winning
             if (playerY < 28)
             {
+                win.Play();
                 gameState = "overWin";
             }
             #endregion
